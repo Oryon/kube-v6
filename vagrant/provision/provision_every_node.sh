@@ -91,6 +91,12 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 EOF
 
+echo "Disable unattended updates"
+sudo tee /etc/apt/apt.conf.d/20auto-upgrades << EOF
+APT::Periodic::Update-Package-Lists "0";
+APT::Periodic::Unattended-Upgrade "0";
+EOF
+
 echo "Configuring IPv6 node routes"
 for vm in $vm_names; do
 	get_vm_conf $vm
